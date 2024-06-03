@@ -10,3 +10,10 @@
 8. To install sequelize: `npm i --save sequelize -g`
 9. To install sequelize-cli: `npm i --save sequelize-cli -g`
 10. And to save postgre: `npm i --save pg -g`
+11. To init sequelize: `sequelize init`
+12. To create a User model: `sequelize model:create --name User --attributes firstName:string,lastName:string,email:string,password:string,gender:string,avatar:string`
+13. To make migrations: `sequelize db:migrate`
+14. To create a seeder: `sequelize seed:create --name users`
+15. To execute seeder: `sequelize db:seed:all`
+16. To undo seeder: `sequelize db:seed:undo`
+17. To install bcrypt: `npm i bcrypt`
