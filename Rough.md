@@ -17,3 +17,4 @@
 15. To execute seeder: `sequelize db:seed:all`
 16. To undo seeder: `sequelize db:seed:undo`
 17. To install bcrypt: `npm i bcrypt`
+18. To install body parser: `npm i body-parser`
