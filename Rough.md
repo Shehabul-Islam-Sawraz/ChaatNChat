@@ -21,3 +21,4 @@
 19. To install JWT: `npm i jsonwebtoken`
 20. For form validation: `npm i --save express-validator`
 21. To create a react app: `npx create-react-app chaatnchat`
+22. To install react router: `npm i --save react-router-dom`
