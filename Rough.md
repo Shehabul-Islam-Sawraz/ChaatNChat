@@ -22,3 +22,5 @@
 20. For form validation: `npm i --save express-validator`
 21. To create a react app: `npx create-react-app chaatnchat`
 22. To install react router: `npm i --save react-router-dom`
+23. Install saas: `npm i node-saas`
+24. Run: `npm install postcss-loader resolve-url-loader sass-loader sass --save-dev`
