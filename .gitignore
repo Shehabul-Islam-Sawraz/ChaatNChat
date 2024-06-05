@@ -1,3 +1,28 @@
 /ChaatNChat-Backend/node_modules/
 /ChaatNChat-Backend/.env
 node_modules
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/ChaatNChat-Frontend/chaatnchat/node_modules
+/ChaatNChat-Frontend/chaatnchat/.pnp
+/ChaatNChat-Frontend/chaatnchat/.pnp.js
+
+# testing
+/ChaatNChat-Frontend/chaatnchat/coverage
+
+# production
+/ChaatNChat-Frontend/chaatnchat/build
+
+# misc
+/ChaatNChat-Frontend/chaatnchat/.DS_Store
+/ChaatNChat-Frontend/chaatnchat/.env.local
+/ChaatNChat-Frontend/chaatnchat/.env.development.local
+/ChaatNChat-Frontend/chaatnchat/.env.test.local
+/ChaatNChat-Frontend/chaatnchat/.env.production.local
+
+/ChaatNChat-Frontend/chaatnchat/npm-debug.log*
+/ChaatNChat-Frontend/chaatnchat/yarn-debug.log*
+/ChaatNChat-Frontend/chaatnchat/yarn-error.log*
+

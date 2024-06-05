@@ -20,3 +20,4 @@
 18. To install body parser: `npm i body-parser`
 19. To install JWT: `npm i jsonwebtoken`
 20. For form validation: `npm i --save express-validator`
+21. To create a react app: `npx create-react-app chaatnchat`
