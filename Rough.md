@@ -26,5 +26,6 @@
 24. Install saas: `npm i node-saas`
 25. Run: `npm install postcss-loader resolve-url-loader sass-loader sass --save-dev`
 26. To install axios: `npm i axios`
-27. ------------------------------- react end
-28. To intall Cors: `npm i cors`
+27. To install redux: `npm i redux` and `npm i redux-thunk`
+28. ------------------------------- react end
+29. To intall Cors: `npm i cors`
