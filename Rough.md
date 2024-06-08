@@ -20,7 +20,11 @@
 18. To install body parser: `npm i body-parser`
 19. To install JWT: `npm i jsonwebtoken`
 20. For form validation: `npm i --save express-validator`
-21. To create a react app: `npx create-react-app chaatnchat`
-22. To install react router: `npm i --save react-router-dom`
-23. Install saas: `npm i node-saas`
-24. Run: `npm install postcss-loader resolve-url-loader sass-loader sass --save-dev`
+21. ------------------------------- react start
+22. To create a react app: `npx create-react-app chaatnchat`
+23. To install react router: `npm i --save react-router-dom`
+24. Install saas: `npm i node-saas`
+25. Run: `npm install postcss-loader resolve-url-loader sass-loader sass --save-dev`
+26. To install axios: `npm i axios`
+27. ------------------------------- react end
+28. To intall Cors: `npm i cors`
