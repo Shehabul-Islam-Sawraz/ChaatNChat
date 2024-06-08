@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import loginImage from '../../assets/images/login.svg'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import AuthService from '../../services/authService'
 
 import './Auth.scss'
 
@@ -13,13 +13,14 @@ const Login = () => {
     const submitForm = (e) => {
         e.preventDefault()
 
-        axios.post('http://127.0.0.1:5001/login', { email, password })
-            .then(res => {
-                console.log("res: ", res);
-            })
-            .catch(err => {
-                console.log("Error: ", err);
-            })
+        AuthService.login({ email, password }).then(res => console.log(res))
+        // axios.post('http://127.0.0.1:5001/login', { email, password })
+        //     .then(res => {
+        //         console.log("res: ", res);
+        //     })
+        //     .catch(err => {
+        //         console.log("Error: ", err);
+        //     })
 
         console.log(email, password);
     }
