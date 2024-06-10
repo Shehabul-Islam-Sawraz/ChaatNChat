@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
         }
 
         const userWithToken = generateToken(user.get({ raw: true }))
-
+        userWithToken.avatar = user.avatar
         return res.send(userWithToken)
     }
     catch (e) {
