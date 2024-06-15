@@ -28,5 +28,7 @@
 26. To install axios: `npm i axios`
 27. To install redux: `npm i redux` and `npm i redux-thunk` and `npm i react-redux`
 28. To install reduxjs toolkit: `npm i @reduxjs/toolkit`
-29. ------------------------------- react end
-30. To intall Cors: `npm i cors`
+29. To install font awesome: `npm i --save @fortawesome/fontawesome-svg-core` , `npm install --save @fortawesome/free-solid-svg-icons`, 
+`npm install --save @fortawesome/react-fontawesome`, `npm i --save @fortawesome/free-regular-svg-icons`
+30. ------------------------------- react end
+31. To intall Cors: `npm i cors`
