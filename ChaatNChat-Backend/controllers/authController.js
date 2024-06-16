@@ -8,7 +8,7 @@ const generateToken = (user) => {
 
     const token = jwt.sign(user, config.appKey, { expiresIn: 600 }) // Expires in 10 minutes
 
-    return { ...user, ...{ token } }
+    return { ...{ user }, ...{ token } }
 }
 
 exports.login = async (req, res) => {
@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
         }
 
         const userWithToken = generateToken(user.get({ raw: true }))
-        userWithToken.avatar = user.avatar
+        userWithToken.user.avatar = user.avatar
         return res.send(userWithToken)
     }
     catch (e) {
