@@ -40,7 +40,7 @@ const Navbar = () => {
             <h2>ChaatNChat</h2>
             <div id='profile-menu' onClick={() => setShowProfileOptions(!showProfileOptions)}>
                 <img width='40' height='40' src={user.avatar} alt='Avatar' />
-                <p>{user.firstName} {user.lastName}</p>
+                <p>{user.firstName}  {user.lastName}</p>
                 <FontAwesomeIcon icon='caret-down' className='fa-icon' />
 
                 {
