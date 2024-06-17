@@ -1,9 +1,5 @@
 import AuthService from "../../services/authService"
-
-export const LOGIN = 'LOGIN'
-export const REGISTER = 'REGISTER'
-export const LOGOUT = 'LOGOUT'
-export const UPDATE_PROFILE = 'UPDATE_PROFILE'
+import { LOGIN, LOGOUT, REGISTER, UPDATE_PROFILE } from '../types/index'
 
 export const login = (data, navigate) => dispatch => {
     return AuthService.login(data)
@@ -40,6 +36,6 @@ export const updateProfile = (data) => dispatch => {
             dispatch({ type: UPDATE_PROFILE, payload: res })
         })
         .catch(err => {
-
+            throw err
         })
 }
