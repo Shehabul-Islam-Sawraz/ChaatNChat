@@ -32,3 +32,4 @@
 `npm install --save @fortawesome/react-fontawesome`, `npm i --save @fortawesome/free-regular-svg-icons`
 30. ------------------------------- react end
 31. To intall Cors: `npm i cors`
+32. For file upload: `npm i--save multer`
