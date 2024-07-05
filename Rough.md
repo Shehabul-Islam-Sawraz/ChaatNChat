@@ -35,3 +35,4 @@
 32. For file upload: `npm i--save multer`
 33. To create chat model: `sequelize model:create --name Chat --attributes type:string`
 34. To create chatUser model: `sequelize model:create --name ChatUser --attributes chatId:integer,userId:integer`
+35. To create Message model: `sequelize model:create --name Message --attributes type:string,message:text,chatId:integer,fromUserId:integer`
