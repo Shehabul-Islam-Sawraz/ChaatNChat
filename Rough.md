@@ -33,3 +33,5 @@
 30. ------------------------------- react end
 31. To intall Cors: `npm i cors`
 32. For file upload: `npm i--save multer`
+33. To create chat model: `sequelize model:create --name Chat --attributes type:string`
+34. To create chatUser model: `sequelize model:create --name ChatUser --attributes chatId:integer,userId:integer`
