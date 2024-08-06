@@ -1,6 +1,35 @@
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Friend from '../Friend/Friend';
+import './FriendList.scss';
+
 const FriendList = () => {
+
+    const chats = useSelector(state => state.chatReducer.chats)
+
+    const openChat = (chat) => {
+
+    }
+
     return (
-        <h1>Friend List</h1>
+        <div id='friends'>
+            <div id='title'>
+                <h3 className='m-0'>Friends</h3>
+                <button>ADD</button>
+            </div>
+
+            <br />
+
+            <div id='friends-box'>
+                {
+                    chats.length > 0
+                        ? chats.map(chat => {
+                            return <Friend click={() => openChat(chat)} chat={chat} key={chat.id} />
+                        })
+                        : <p id='no-chat'>No Friends Added</p>
+                }
+            </div>
+        </div>
     );
 }
 
