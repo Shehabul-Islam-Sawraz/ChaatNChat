@@ -1,4 +1,4 @@
-import { FETCH_CHATS } from '../types/index'
+import { FETCH_CHATS, SET_CURRENT_CHAT } from '../types/index'
 import ChatService from "../../services/chatService"
 
 export const fetchChats = () => dispatch => {
@@ -18,4 +18,8 @@ export const fetchChats = () => dispatch => {
         .catch(err => {
             throw err
         })
+}
+
+export const setCurrentChat = (chat) => dispatch => {
+    dispatch({ type: SET_CURRENT_CHAT, payload: chat })
 }

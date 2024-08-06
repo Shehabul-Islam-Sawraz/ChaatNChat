@@ -2,13 +2,15 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Friend from '../Friend/Friend';
 import './FriendList.scss';
+import { setCurrentChat } from '../../../../store/actions/chat'
 
 const FriendList = () => {
 
+    const dispatch = useDispatch()
     const chats = useSelector(state => state.chatReducer.chats)
 
     const openChat = (chat) => {
-
+        dispatch(setCurrentChat(chat))
     }
 
     return (
