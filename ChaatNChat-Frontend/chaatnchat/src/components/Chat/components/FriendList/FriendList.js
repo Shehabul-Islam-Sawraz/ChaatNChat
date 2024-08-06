@@ -14,13 +14,13 @@ const FriendList = () => {
     }
 
     return (
-        <div id='friends'>
+        <div id='friends' className='shadow-light'>
             <div id='title'>
                 <h3 className='m-0'>Friends</h3>
                 <button>ADD</button>
             </div>
 
-            <br />
+            <hr />
 
             <div id='friends-box'>
                 {
