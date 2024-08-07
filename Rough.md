@@ -37,3 +37,4 @@
 34. To create chatUser model: `sequelize model:create --name ChatUser --attributes chatId:integer,userId:integer`
 35. To create Message model: `sequelize model:create --name Message --attributes type:string,message:text,chatId:integer,fromUserId:integer`
 36. To create chat seed: `sequelize seed:create --name chats`
+37. To install web socket: `npm i socket.io`
