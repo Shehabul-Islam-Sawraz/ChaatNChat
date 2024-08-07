@@ -28,13 +28,14 @@
 26. To install axios: `npm i axios`
 27. To install redux: `npm i redux` and `npm i redux-thunk` and `npm i react-redux`
 28. To install reduxjs toolkit: `npm i @reduxjs/toolkit`
-29. To install font awesome: `npm i --save @fortawesome/fontawesome-svg-core` , `npm install --save @fortawesome/free-solid-svg-icons`, 
+29. To installsocket io: `npm i socket.io-client`
+30. To install font awesome: `npm i --save @fortawesome/fontawesome-svg-core` , `npm install --save @fortawesome/free-solid-svg-icons`, 
 `npm install --save @fortawesome/react-fontawesome`, `npm i --save @fortawesome/free-regular-svg-icons`
-30. ------------------------------- react end
-31. To intall Cors: `npm i cors`
-32. For file upload: `npm i--save multer`
-33. To create chat model: `sequelize model:create --name Chat --attributes type:string`
-34. To create chatUser model: `sequelize model:create --name ChatUser --attributes chatId:integer,userId:integer`
-35. To create Message model: `sequelize model:create --name Message --attributes type:string,message:text,chatId:integer,fromUserId:integer`
-36. To create chat seed: `sequelize seed:create --name chats`
-37. To install web socket: `npm i socket.io`
+1.  ------------------------------- react end
+2.  To intall Cors: `npm i cors`
+3.  For file upload: `npm i--save multer`
+4.  To create chat model: `sequelize model:create --name Chat --attributes type:string`
+5.  To create chatUser model: `sequelize model:create --name ChatUser --attributes chatId:integer,userId:integer`
+6.  To create Message model: `sequelize model:create --name Message --attributes type:string,message:text,chatId:integer,fromUserId:integer`
+7.  To create chat seed: `sequelize seed:create --name chats`
+8.  To install web socket: `npm i socket.io`
