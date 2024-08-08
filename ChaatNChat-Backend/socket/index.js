@@ -1,7 +1,8 @@
 const socketIo = require('socket.io')
-
 const { sequelize } = require('../models')
-const users = Map()
+
+const users = new Map()
+const userSockets = new Map()
 
 const SocketServer = (server) => {
     const io = socketIo(server)
@@ -16,10 +17,12 @@ const SocketServer = (server) => {
                 existingUser.sockets = [...existingUser.sockets, ...[socket.id]]
                 users.set(user.id, existingUser)
                 sockets = [...existingUser.sockets, ...[socket.id]]
+                userSockets.set(socket.id, user.id)
             }
             else {
                 users.set(user.id, { id: user.id, sockets: [socket.id] })
                 sockets.push(socket.id)
+                userSockets.set(socket.id, user.id)
             }
 
             const onlineFriends = []
@@ -52,6 +55,42 @@ const SocketServer = (server) => {
             console.log("New user joined: ", user.firstName)
 
             io.to(socket.id).emit('typing', 'User typing...')
+        })
+
+        socket.on('disconnect', async () => {
+            if (userSockets.has(socket.id)) {
+                const user = users.get(userSockets.get(socket.id))
+
+                if (user.sockets.length > 1) {
+                    user.sockets = user.sockets.filter(sockt => {
+                        if (sockt != socket.id) {
+                            return true
+                        }
+
+                        userSockets.delete(sockt)
+                        return false
+                    })
+
+                    users.set(user.id, user)
+                } else {
+                    const chatterFriends = await getChatters(user.id)
+
+                    for (let i = 0; i < chatterFriends.length; i++) {
+                        if (users.has(chatterFriends[i])) {
+                            users.get(chatterFriends[i]).sockets.forEach(socket => {
+                                try {
+                                    io.to(socket).emit('offline', user)
+                                } catch (e) {
+
+                                }
+                            });
+                        }
+                    }
+
+                    userSockets.delete(socket.id)
+                    users.delete(user.id)
+                }
+            }
         })
     })
 }
