@@ -1,5 +1,6 @@
 const socketIo = require('socket.io')
 
+const { sequelize } = require('../models')
 const users = Map()
 
 const SocketServer = (server) => {
@@ -22,7 +23,7 @@ const SocketServer = (server) => {
             }
 
             const onlineFriends = []
-            const chatterFriends = []
+            const chatterFriends = await getChatters(user.id)
 
             // Notify friends that user is now online
             for (let i = 0; i < chatterFriends.length; i++) {
@@ -53,6 +54,34 @@ const SocketServer = (server) => {
             io.to(socket.id).emit('typing', 'User typing...')
         })
     })
+}
+
+const getChatters = async (userId) => {
+    // The most inner join represents that it will join chats
+    // with those user chats that this user is inside--
+    // The ourter inner join will give us the id of chats
+    // where this user is chatting with someone--
+    // Finally we return all chat users except this user but it
+    // will still have that chat that the user is inside--
+    try {
+        const [results, metadata] = await sequelize.query(`
+            select "cu"."userId" from "ChatUsers" as cu
+            inner join (
+                select "c"."id" from "Chats" as c
+                where exists (
+                    select "u"."id" from "Users" as u
+                    inner join "ChatUsers" on u.id = "ChatUsers"."userId"
+                    where u.id = ${parseInt(userId)} and c.id = "ChatUsers"."chatId"
+                )
+            ) as cjoin on cjoin.id = "cu"."chatId"
+            where "cu"."userId" != ${parseInt(userId)}    
+        `)
+
+        return results.length > 0 ? results.map(el => el.userId) : []
+    } catch (e) {
+        console.log(e)
+        return []
+    }
 }
 
 module.exports = SocketServer
