@@ -1,15 +1,31 @@
 import { useEffect } from 'react';
-import socketIOClient from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 function useSocket(user, dispatch) {
     useEffect(() => {
-        const socket = socketIOClient.connect('http://127.0.0.1:3000')
+        const socket = io("http://127.0.0.1:4000")
         socket.emit('join', user)
 
-        socket.on('typing', (message) => {
-            console.log("Event: ", message)
+        socket.on('typing', (user) => {
+            console.log("Event: ", user)
         })
-    }, [dispatch])
+
+        socket.on('friends', (friends) => {
+            console.log("Friends: ", friends)
+        })
+
+        socket.on('online', (user) => {
+            console.log("Online: ", user)
+        })
+
+        socket.on('offline', (user) => {
+            console.log("Offline: ", user)
+        })
+
+        return () => {
+            socket.disconnect()
+        }
+    }, [user, dispatch])
 }
 
 export default useSocket;

@@ -1,11 +1,15 @@
-const socketIo = require('socket.io')
+// const socketIo = require('socket.io')
 const { sequelize } = require('../models')
+const { Server } = require('socket.io')
 
 const users = new Map()
 const userSockets = new Map()
 
 const SocketServer = (server) => {
-    const io = socketIo(server)
+    // const io = socketIo(server)
+    const io = new Server(server, {
+        cors: "http://127.0.0.1:3000"
+    });
 
     io.on('connection', (socket) => {
         socket.on('join', async (user) => {
@@ -93,6 +97,8 @@ const SocketServer = (server) => {
             }
         })
     })
+
+    io.listen(4000); // Socket listening in port 4000
 }
 
 const getChatters = async (userId) => {
