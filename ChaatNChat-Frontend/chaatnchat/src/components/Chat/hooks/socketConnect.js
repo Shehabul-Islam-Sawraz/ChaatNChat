@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
-import { fetchChats, offlineFriend, onlineFriend, onlineFriends } from '../../../store/actions/chat';
+import { fetchChats, offlineFriend, onlineFriend, onlineFriends, setSocket } from '../../../store/actions/chat';
 
 function useSocket(user, dispatch) {
     useEffect(() => {
@@ -9,6 +9,9 @@ function useSocket(user, dispatch) {
             .then(res => {
                 // console.log(res)
                 const socket = io("http://127.0.0.1:4000")
+
+                dispatch(setSocket(socket))
+
                 socket.emit('join', user)
 
                 socket.on('typing', (user) => {

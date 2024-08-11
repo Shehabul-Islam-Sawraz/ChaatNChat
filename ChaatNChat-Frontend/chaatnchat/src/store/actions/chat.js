@@ -1,4 +1,4 @@
-import { FETCH_CHATS, SET_CURRENT_CHAT, FRIENDS_ONLINE, FRIEND_ONLINE, FRIEND_OFFLINE } from '../types/index'
+import { FETCH_CHATS, SET_CURRENT_CHAT, FRIENDS_ONLINE, FRIEND_ONLINE, FRIEND_OFFLINE, SET_SOCKET } from '../types/index'
 import ChatService from "../../services/chatService"
 
 export const fetchChats = () => dispatch => {
@@ -34,4 +34,8 @@ export const onlineFriend = (friend) => dispatch => {
 
 export const offlineFriend = (friend) => dispatch => {
     dispatch({ type: FRIEND_OFFLINE, payload: friend })
+}
+
+export const setSocket = (socket) => dispatch => {
+    dispatch({ type: SET_SOCKET, payload: socket })
 }

@@ -1,8 +1,9 @@
-import { FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, SET_CURRENT_CHAT } from '../types/index'
+import { FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
 
 const initialState = {
     chats: [],
-    currentChat: {}
+    currentChat: {},
+    socket: {}
 }
 
 const chatReducer = (state = initialState, action) => {
@@ -107,6 +108,12 @@ const chatReducer = (state = initialState, action) => {
                 ...state,
                 chats: chatsCopy,
                 currentChat: currentChatCopy
+            }
+        }
+        case SET_SOCKET: {
+            return {
+                ...state,
+                socket: payload
             }
         }
         default: {
