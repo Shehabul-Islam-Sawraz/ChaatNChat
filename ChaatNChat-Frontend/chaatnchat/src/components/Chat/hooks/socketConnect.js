@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
-import { fetchChats, offlineFriend, onlineFriend, onlineFriends, setSocket } from '../../../store/actions/chat';
+import { fetchChats, offlineFriend, onlineFriend, onlineFriends, receivedMessage, setSocket } from '../../../store/actions/chat';
 
 function useSocket(user, dispatch) {
+
     useEffect(() => {
+        // console.log(res)
+        const socket = io("http://127.0.0.1:4000")
+
+        dispatch(setSocket(socket))
 
         dispatch(fetchChats())
             .then(res => {
-                // console.log(res)
-                const socket = io("http://127.0.0.1:4000")
-
-                dispatch(setSocket(socket))
-
                 socket.emit('join', user)
 
                 socket.on('typing', (user) => {
@@ -33,15 +33,17 @@ function useSocket(user, dispatch) {
                     dispatch(offlineFriend(user))
                 })
 
-                console.log(res)
-
-                return () => {
-                    socket.disconnect()
-                }
+                socket.on('received', (message) => {
+                    dispatch(receivedMessage(message, user.id))
+                })
             })
             .catch(err => {
                 console.log(err)
             })
+
+        return () => {
+            socket.disconnect()
+        }
     }, [user, dispatch])
 }
 

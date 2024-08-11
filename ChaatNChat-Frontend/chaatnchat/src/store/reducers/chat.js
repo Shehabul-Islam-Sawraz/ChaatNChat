@@ -1,9 +1,11 @@
-import { FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
+import { FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, RECEIVED_MESSAGE, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
 
 const initialState = {
     chats: [],
     currentChat: {},
-    socket: {}
+    socket: {},
+    newMessage: { chatId: null, seen: null },
+    scrollBottom: 0
 }
 
 const chatReducer = (state = initialState, action) => {
@@ -114,6 +116,57 @@ const chatReducer = (state = initialState, action) => {
             return {
                 ...state,
                 socket: payload
+            }
+        }
+        case RECEIVED_MESSAGE: {
+            const { message, userId } = payload
+            let currentChatCopy = { ...state.currentChat }
+            let newMessage = { ...state.newMessage }
+            let scrollBottom = state.scrollBottom
+
+            const chatsCopy = state.chats.map(chat => {
+                if (message.chatId === chat.id) {
+                    if (message.User.id === userId) {
+                        scrollBottom++
+                    }
+                    else {
+                        newMessage = {
+                            chatId: chat.id,
+                            seen: false
+                        }
+                    }
+
+                    if (message.chatId === currentChatCopy.id) {
+                        currentChatCopy = {
+                            ...currentChatCopy,
+                            Messages: [...currentChatCopy.Messages, ...[message]]
+                        }
+                    }
+
+                    return {
+                        ...chat,
+                        Messages: [...chat.Messages, ...[message]]
+                    }
+                }
+
+                return chat
+            })
+
+            if (scrollBottom === state.scrollBottom) {
+                return {
+                    ...state,
+                    chats: chatsCopy,
+                    currentChat: currentChatCopy,
+                    newMessage
+                }
+            }
+
+            return {
+                ...state,
+                chats: chatsCopy,
+                currentChat: currentChatCopy,
+                newMessage,
+                scrollBottom
             }
         }
         default: {
