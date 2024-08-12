@@ -151,6 +151,7 @@ exports.messages = async (req, res) => {
 }
 
 exports.imageUpload = (req, res) => {
+    console.log("Image upload....")
     if (req.file) {
         return res.json({ url: req.file.filename })
     }
