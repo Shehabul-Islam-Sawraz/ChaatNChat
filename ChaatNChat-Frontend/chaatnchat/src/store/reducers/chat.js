@@ -1,11 +1,12 @@
-import { FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, RECEIVED_MESSAGE, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
+import { FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, RECEIVED_MESSAGE, SENDER_TYPING, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
 
 const initialState = {
     chats: [],
     currentChat: {},
     socket: {},
     newMessage: { chatId: null, seen: null },
-    scrollBottom: 0
+    scrollBottom: 0,
+    senderTyping: { typing: false }
 }
 
 const chatReducer = (state = initialState, action) => {
@@ -159,7 +160,8 @@ const chatReducer = (state = initialState, action) => {
                     ...state,
                     chats: chatsCopy,
                     currentChat: currentChatCopy,
-                    newMessage
+                    newMessage,
+                    senderTyping: { typing: false }
                 }
             }
 
@@ -168,7 +170,22 @@ const chatReducer = (state = initialState, action) => {
                 chats: chatsCopy,
                 currentChat: currentChatCopy,
                 newMessage,
-                scrollBottom
+                scrollBottom,
+                senderTyping: { typing: false }
+            }
+        }
+        case SENDER_TYPING: {
+            if (payload.typing) {
+                return {
+                    ...state,
+                    senderTyping: payload,
+                    scrollBottom: state.scrollBottom + 1
+                }
+            }
+
+            return {
+                ...state,
+                senderTyping: payload
             }
         }
         default: {

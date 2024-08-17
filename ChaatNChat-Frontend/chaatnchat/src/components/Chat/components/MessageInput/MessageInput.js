@@ -17,6 +17,23 @@ const MessageInput = ({ chat }) => {
     const handleMessage = (e) => {
         const msg = e.target.value
         setMessage(msg)
+
+        // Notify friends that user is typing something
+        const receiver = {
+            chatId: chat.id,
+            fromUser: user,
+            toUserId: chat.Users.map(user => user.id)
+        }
+
+        if (msg.length === 1) {
+            receiver.typing = true
+            socket.emit('typing', receiver)
+        }
+
+        if (msg.length === 0) {
+            receiver.typing = false
+            socket.emit('typing', receiver)
+        }
     }
 
     const sendMessage = (imageUpload) => {

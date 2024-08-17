@@ -1,4 +1,5 @@
 // const socketIo = require('socket.io')
+const { messages } = require('../controllers/chatController')
 const { sequelize } = require('../models')
 const { Server } = require('socket.io')
 const Message = require('../models').Message
@@ -95,6 +96,16 @@ const SocketServer = (server) => {
                     io.to(socket).emit('received', message)
                 })
             } catch (e) { }
+        })
+
+        socket.on('typing', (message) => {
+            message.toUserId.forEach(id => {
+                if (users.has(id)) {
+                    users.get(id).sockets.forEach(socket => {
+                        io.to(socket).emit('typing', message)
+                    })
+                }
+            })
         })
 
         socket.on('disconnect', async () => {

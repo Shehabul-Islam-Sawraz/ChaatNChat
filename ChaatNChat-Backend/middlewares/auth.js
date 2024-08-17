@@ -19,6 +19,6 @@ exports.auth = (req, res, next) => {
         // console.log(user)
     })
 
-    console.log(token)
+    // console.log(token)
     next()
 }

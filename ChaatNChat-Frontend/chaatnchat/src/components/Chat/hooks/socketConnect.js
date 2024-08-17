@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
-import { fetchChats, offlineFriend, onlineFriend, onlineFriends, receivedMessage, setSocket } from '../../../store/actions/chat';
+import { fetchChats, offlineFriend, onlineFriend, onlineFriends, receivedMessage, senderTyping, setSocket } from '../../../store/actions/chat';
 
 function useSocket(user, dispatch) {
 
@@ -14,8 +14,8 @@ function useSocket(user, dispatch) {
             .then(res => {
                 socket.emit('join', user)
 
-                socket.on('typing', (user) => {
-                    console.log("Event: ", user)
+                socket.on('typing', (sender) => {
+                    dispatch(senderTyping(sender))
                 })
 
                 socket.on('friends', (friends) => {

@@ -9,6 +9,7 @@ const MessageBox = ({ chat }) => {
 
     const msgBox = useRef()
     const scrollBottom = useSelector(state => state.chatReducer.scrollBottom)
+    const senderTyping = useSelector(state => state.chatReducer.senderTyping)
 
     const scrollManual = (value) => {
         msgBox.current.scrollTop = value
@@ -32,6 +33,15 @@ const MessageBox = ({ chat }) => {
                         key={message.id}
                     />
                 })
+            }
+            {
+                senderTyping.typing && senderTyping.chatId === chat.id
+                    ? <div className="message">
+                        <div className="other-person">
+                            <p className="m-0">{senderTyping.fromUser.lastName} typing...</p>
+                        </div>
+                    </div>
+                    : null
             }
         </div>
     )
