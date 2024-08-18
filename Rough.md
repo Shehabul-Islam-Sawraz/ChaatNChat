@@ -31,6 +31,7 @@
 29. To installsocket io: `npm i socket.io-client`
 30. To install font awesome: `npm i --save @fortawesome/fontawesome-svg-core` , `npm install --save @fortawesome/free-solid-svg-icons`, 
 `npm install --save @fortawesome/react-fontawesome`, `npm i --save @fortawesome/free-regular-svg-icons`
+31. For Emoji: `npm install --save emoji-mart @emoji-mart/data @emoji-mart/react`
 1.  ------------------------------- react end
 2.  To intall Cors: `npm i cors`
 3.  For file upload: `npm i--save multer`
