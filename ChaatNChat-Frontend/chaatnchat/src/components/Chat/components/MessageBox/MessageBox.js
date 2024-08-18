@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from 'react-redux';
 import Message from '../Message/Message';
 import './MessageBox.scss';
@@ -6,6 +6,7 @@ import './MessageBox.scss';
 const MessageBox = ({ chat }) => {
 
     const user = useSelector(state => state.authReducer.user)
+    const [loading, setLoading] = useState(false)
 
     const msgBox = useRef()
     const scrollBottom = useSelector(state => state.chatReducer.scrollBottom)
@@ -13,6 +14,14 @@ const MessageBox = ({ chat }) => {
 
     const scrollManual = (value) => {
         msgBox.current.scrollTop = value
+    }
+
+    const handleInfiniteScroll = (e) => {
+        if (e.target.scrollTop === 0) {
+            setLoading(true)
+            const pagination = chat.pagination
+            const page = typeof pagination === 'undefined' ? 1 : pagination
+        }
     }
 
     useEffect(() => {

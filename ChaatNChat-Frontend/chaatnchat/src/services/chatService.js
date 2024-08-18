@@ -24,6 +24,20 @@ const ChatService = {
             .catch(err => {
                 throw err
             })
+    },
+
+    paginationMessages: (chatId, page) => {
+        return API.get('/chats/messages', {
+            params: {
+                chatId, page
+            }
+        })
+            .then(({ data }) => {
+                return data
+            })
+            .catch(err => {
+                throw err
+            })
     }
 }
 

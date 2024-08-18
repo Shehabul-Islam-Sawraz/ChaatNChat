@@ -1,4 +1,4 @@
-import { FETCH_CHATS, SET_CURRENT_CHAT, FRIENDS_ONLINE, FRIEND_ONLINE, FRIEND_OFFLINE, SET_SOCKET, RECEIVED_MESSAGE, SENDER_TYPING } from '../types/index'
+import { FETCH_CHATS, SET_CURRENT_CHAT, FRIENDS_ONLINE, FRIEND_ONLINE, FRIEND_OFFLINE, SET_SOCKET, RECEIVED_MESSAGE, SENDER_TYPING, PAGINATE_MESSAGES } from '../types/index'
 import ChatService from "../../services/chatService"
 
 export const fetchChats = () => dispatch => {
@@ -46,4 +46,20 @@ export const receivedMessage = (message, userId) => dispatch => {
 
 export const senderTyping = (sender) => dispatch => {
     dispatch({ type: SENDER_TYPING, payload: sender })
+}
+
+export const paginateMessages = (chatId, page) => dispatch => {
+    return ChatService.paginationMessages(chatId, page)
+        .then(({ messages, pagination }) => {
+            if (typeof messages !== 'undefined' && messages.length > 0) {
+                messages.reverse()
+                const payload = { messages, chatId, pagination }
+                dispatch({ type: PAGINATE_MESSAGES, payload })
+                return true
+            }
+            return false
+        })
+        .catch(err => {
+            throw err
+        })
 }

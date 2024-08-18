@@ -130,7 +130,8 @@ exports.messages = async (req, res) => {
             }
         ],
         limit,
-        offset
+        offset,
+        order: [['id', 'DESC']]
     })
 
     const totalPages = Math.ceil(messages.count / limit)
