@@ -1,4 +1,4 @@
-import { FETCH_CHATS, SET_CURRENT_CHAT, FRIENDS_ONLINE, FRIEND_ONLINE, FRIEND_OFFLINE, SET_SOCKET, RECEIVED_MESSAGE, SENDER_TYPING, PAGINATE_MESSAGES } from '../types/index'
+import { FETCH_CHATS, SET_CURRENT_CHAT, FRIENDS_ONLINE, FRIEND_ONLINE, FRIEND_OFFLINE, SET_SOCKET, RECEIVED_MESSAGE, SENDER_TYPING, PAGINATE_MESSAGES, INCREMENT_SCROLL } from '../types/index'
 import ChatService from "../../services/chatService"
 
 export const fetchChats = () => dispatch => {
@@ -62,4 +62,8 @@ export const paginateMessages = (id, page) => dispatch => {
         .catch(err => {
             throw err
         })
+}
+
+export const incrementScroll = () => dispatch => {
+    dispatch({ type: INCREMENT_SCROLL })
 }
