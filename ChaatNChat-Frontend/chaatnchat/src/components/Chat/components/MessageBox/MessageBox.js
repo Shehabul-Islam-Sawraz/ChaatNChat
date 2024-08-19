@@ -11,10 +11,22 @@ const MessageBox = ({ chat }) => {
 
     const user = useSelector(state => state.authReducer.user)
     const [loading, setLoading] = useState(false)
+    const [scrollUp, setScrollUp] = useState(0)
 
     const msgBox = useRef()
     const scrollBottom = useSelector(state => state.chatReducer.scrollBottom)
     const senderTyping = useSelector(state => state.chatReducer.senderTyping)
+
+    useEffect(() => {
+        // if (!senderTyping.typing) {
+        //     setTimeout(() => {
+        //         scrollManual(msgBox.current.scrollHeight)
+        //     }, 100)
+        // }
+        setTimeout(() => {
+            scrollManual(msgBox.current.scrollHeight)
+        }, 100)
+    }, [scrollBottom])
 
     const scrollManual = (value) => {
         msgBox.current.scrollTop = value
@@ -29,7 +41,7 @@ const MessageBox = ({ chat }) => {
             dispatch(paginateMessages(chat.id, parseInt(page) + 1))
                 .then(res => {
                     if (res) {
-
+                        setScrollUp(scrollUp + 1)
                     }
                     setLoading(false)
                 })
@@ -40,10 +52,18 @@ const MessageBox = ({ chat }) => {
     }
 
     useEffect(() => {
+        if (senderTyping.typing && msgBox.current.scrollTop > msgBox.current.scrollHeight * 0.30) {
+            setTimeout(() => {
+                scrollManual(Math.ceil(msgBox.current.scrollHeight * 0.10))
+            }, 100)
+        }
+    }, [senderTyping])
+
+    useEffect(() => {
         setTimeout(() => {
-            scrollManual(msgBox.current.scrollHeight)
+            scrollManual(Math.ceil(msgBox.current.scrollHeight * 0.10))
         }, 100)
-    }, [scrollBottom])
+    }, [scrollUp])
 
     return (
         <div onScroll={handleInfiniteScroll} id="msg-box" ref={msgBox}>
