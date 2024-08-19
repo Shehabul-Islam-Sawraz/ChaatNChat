@@ -48,12 +48,12 @@ export const senderTyping = (sender) => dispatch => {
     dispatch({ type: SENDER_TYPING, payload: sender })
 }
 
-export const paginateMessages = (chatId, page) => dispatch => {
-    return ChatService.paginationMessages(chatId, page)
+export const paginateMessages = (id, page) => dispatch => {
+    return ChatService.paginateMessages(id, page)
         .then(({ messages, pagination }) => {
             if (typeof messages !== 'undefined' && messages.length > 0) {
                 messages.reverse()
-                const payload = { messages, chatId, pagination }
+                const payload = { messages, id, pagination }
                 dispatch({ type: PAGINATE_MESSAGES, payload })
                 return true
             }

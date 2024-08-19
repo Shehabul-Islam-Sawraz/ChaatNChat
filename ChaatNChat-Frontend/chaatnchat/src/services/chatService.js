@@ -26,10 +26,10 @@ const ChatService = {
             })
     },
 
-    paginationMessages: (chatId, page) => {
+    paginateMessages: (id, page) => {
         return API.get('/chats/messages', {
             params: {
-                chatId, page
+                id, page
             }
         })
             .then(({ data }) => {
