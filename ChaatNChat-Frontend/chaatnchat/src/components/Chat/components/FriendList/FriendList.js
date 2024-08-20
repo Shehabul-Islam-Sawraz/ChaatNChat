@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Friend from '../Friend/Friend';
 import './FriendList.scss';
 import Modal from '../../../Modal/Modal';
+import ChatService from '../../../../services/chatService';
 import { setCurrentChat } from '../../../../store/actions/chat'
 
 const FriendList = () => {
@@ -18,7 +19,8 @@ const FriendList = () => {
     }
 
     const searchFriends = (e) => {
-
+        ChatService.searchUsers(e.target.value)
+            .then(res => setSuggestions(res))
     }
 
     const addNewFriend = (id) => {
@@ -29,7 +31,7 @@ const FriendList = () => {
         <div id='friends' className='shadow-light'>
             <div id='title'>
                 <h3 className='m-0'>Friends</h3>
-                <button>ADD</button>
+                <button onClick={() => setShowFriendModal(true)}>ADD</button>
             </div>
 
             <hr />
@@ -45,7 +47,7 @@ const FriendList = () => {
             </div>
             {
                 showFriendModal &&
-                <Modal>
+                <Modal click={() => setShowFriendModal(false)}>
                     <Fragment key='header'>
                         <h3 className='m-0'>Create new chat</h3>
                     </Fragment>
@@ -61,7 +63,7 @@ const FriendList = () => {
                             {
                                 suggestions.map(user => {
                                     return (
-                                        <div className='suggestion'>
+                                        <div key={user.id} className='suggestion'>
                                             <p className='m-0'>{user.firstName} {user.lastName}</p>
                                             <button onClick={() => addNewFriend(user.id)}>ADD</button>
                                         </div>
