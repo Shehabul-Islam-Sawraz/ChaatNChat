@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { index, create, messages, deleteChat, imageUpload } = require('../controllers/chatController')
+const { index, create, messages, deleteChat, imageUpload, addUserToGroup } = require('../controllers/chatController')
 const { validate } = require('../validators')
 const { auth } = require('../middlewares/auth')
 const { chatFile } = require('../middlewares/fileUpload')
@@ -9,5 +9,6 @@ router.post('/create', [auth], create)
 router.get('/messages', [auth], messages)
 router.delete('/:id', [auth], deleteChat)
 router.post('/upload-image', [auth, chatFile], imageUpload)
+router.post('/add-user-to-group', auth, addUserToGroup)
 
 module.exports = router
