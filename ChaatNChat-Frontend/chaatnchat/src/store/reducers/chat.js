@@ -1,4 +1,4 @@
-import { FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, INCREMENT_SCROLL, PAGINATE_MESSAGES, RECEIVED_MESSAGE, SENDER_TYPING, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
+import { CREATE_CHAT, FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, INCREMENT_SCROLL, PAGINATE_MESSAGES, RECEIVED_MESSAGE, SENDER_TYPING, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
 
 const initialState = {
     chats: [],
@@ -224,6 +224,11 @@ const chatReducer = (state = initialState, action) => {
                 ...state,
                 scrollBottom: state.scrollBottom + 1,
                 newMessage: { chatId: null, seen: true }
+            }
+        case CREATE_CHAT:
+            return {
+                ...state,
+                chats: [...state.chats, ...[payload]]
             }
         default: {
             return state

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
-import { fetchChats, offlineFriend, onlineFriend, onlineFriends, receivedMessage, senderTyping, setSocket } from '../../../store/actions/chat';
+import { createChat, fetchChats, offlineFriend, onlineFriend, onlineFriends, receivedMessage, senderTyping, setSocket } from '../../../store/actions/chat';
 
 function useSocket(user, dispatch) {
 
@@ -35,6 +35,10 @@ function useSocket(user, dispatch) {
 
                 socket.on('received', (message) => {
                     dispatch(receivedMessage(message, user.id))
+                })
+
+                socket.on('new-chat', (chat) => {
+                    dispatch(createChat(chat))
                 })
             })
             .catch(err => {
