@@ -41,6 +41,13 @@ const ChatHeader = ({ chat }) => {
             })
     }
 
+    const deleteChat = () => {
+        ChatService.deleteCurrentChat(chat.id)
+            .then(data => {
+                socket.emit('delete-chat', data)
+            })
+    }
+
     return (
         <Fragment>
             <div id='chatter'>
@@ -85,13 +92,17 @@ const ChatHeader = ({ chat }) => {
                                 : null
                         }
 
-                        <div>
-                            <FontAwesomeIcon
-                                icon={['fas', 'trash']}
-                                className='fa-icon'
-                            />
-                            <p>Delete Chat</p>
-                        </div>
+                        {
+                            chat.type === 'dual'
+                                ? <div onClick={() => deleteChat()}>
+                                    <FontAwesomeIcon
+                                        icon={['fas', 'trash']}
+                                        className='fa-icon'
+                                    />
+                                    <p>Delete Chat</p>
+                                </div>
+                                : null
+                        }
                     </div>
                     : null
             }
@@ -124,7 +135,7 @@ const ChatHeader = ({ chat }) => {
                     </Fragment>
                 </Modal>
             }
-        </Fragment>
+        </Fragment >
     )
 }
 
