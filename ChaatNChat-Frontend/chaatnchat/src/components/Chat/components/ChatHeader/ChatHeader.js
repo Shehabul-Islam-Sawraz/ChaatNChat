@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import { userStatus } from '../../../../utils/helpers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Modal from '../../../Modal/Modal';
 import './ChatHeader.scss';
 import ChatService from '../../../../services/chatService';
@@ -56,7 +56,7 @@ const ChatHeader = ({ chat }) => {
             {
                 showChatOptions
                     ? <div id='settings'>
-                        <div>
+                        <div onClick={() => setShowAddFriendModal(true)}>
                             <FontAwesomeIcon
                                 icon={['fas', 'user-plus']}
                                 className='fa-icon'

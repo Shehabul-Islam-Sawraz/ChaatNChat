@@ -1,4 +1,4 @@
-import { CREATE_CHAT, FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, INCREMENT_SCROLL, PAGINATE_MESSAGES, RECEIVED_MESSAGE, SENDER_TYPING, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
+import { ADD_USER_TO_GROUP, CREATE_CHAT, FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, INCREMENT_SCROLL, PAGINATE_MESSAGES, RECEIVED_MESSAGE, SENDER_TYPING, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
 
 const initialState = {
     chats: [],
@@ -230,6 +230,46 @@ const chatReducer = (state = initialState, action) => {
                 ...state,
                 chats: [...state.chats, ...[payload]]
             }
+        case ADD_USER_TO_GROUP: {
+            const { chat, chatters } = payload
+
+            let exists = false
+
+            const chatsCopy = state.chats.map(chatState => {
+                if (chat.id === chatState.id) {
+                    exists = true
+
+                    return {
+                        ...chatState,
+                        Users: [...chatState.Users, ...chatters]
+                    }
+                }
+
+                return chatState
+            })
+
+            if (!exists) chatsCopy.push(chat)
+
+            let currentChatCopy = { ...state.currentChat }
+
+            if (Object.keys(currentChatCopy).length > 0) {
+                if (chat.id === currentChatCopy.id) {
+                    currentChatCopy = {
+                        ...state.currentChat,
+                        Users: [
+                            ...state.currentChat.Users,
+                            ...chatters
+                        ]
+                    }
+                }
+            }
+
+            return {
+                ...state,
+                chats: chatsCopy,
+                currentChat: currentChatCopy
+            }
+        }
         default: {
             return state
         }
