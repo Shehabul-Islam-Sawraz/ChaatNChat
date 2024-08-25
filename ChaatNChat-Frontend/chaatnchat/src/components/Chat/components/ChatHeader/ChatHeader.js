@@ -32,6 +32,15 @@ const ChatHeader = ({ chat }) => {
             })
     }
 
+    const leaveChat = () => {
+        ChatService.leaveCurrentChat(chat.id)
+            .then(data => {
+                socket.emit('leave-current-chat', data)
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+
     return (
         <Fragment>
             <div id='chatter'>
