@@ -75,7 +75,7 @@ const ChatHeader = ({ chat }) => {
 
                         {
                             chat.type === 'group'
-                                ? <div>
+                                ? <div onClick={() => leaveChat()}>
                                     <FontAwesomeIcon
                                         icon={['fas', 'sign-out-alt']}
                                         className='fa-icon'

@@ -1,4 +1,4 @@
-import { ADD_USER_TO_GROUP, CREATE_CHAT, FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, INCREMENT_SCROLL, PAGINATE_MESSAGES, RECEIVED_MESSAGE, SENDER_TYPING, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
+import { ADD_USER_TO_GROUP, CREATE_CHAT, FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, INCREMENT_SCROLL, LEAVE_CURRENT_CHAT, PAGINATE_MESSAGES, RECEIVED_MESSAGE, SENDER_TYPING, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
 
 const initialState = {
     chats: [],
@@ -268,6 +268,45 @@ const chatReducer = (state = initialState, action) => {
                 ...state,
                 chats: chatsCopy,
                 currentChat: currentChatCopy
+            }
+        }
+        case LEAVE_CURRENT_CHAT: {
+            const { chatId, userId, currentUserId } = payload
+
+            if (userId === currentUserId) {
+                const chatsCopy = state.chats.filter(chat => chat.id !== chatId)
+
+                return {
+                    ...state,
+                    chats: chatsCopy,
+                    currentChat: state.currentChat.id === chatId ? {} : state.currentChat
+                }
+            }
+            else {
+                const chatsCopy = state.chats.map(chat => {
+                    if (chatId === chat.id) {
+                        return {
+                            ...chat,
+                            Users: chat.Users.filter(user => user.id !== userId)
+                        }
+                    }
+
+                    return chat
+                })
+
+                let currentChatCopy = { ...state.currentChat }
+                if (currentChatCopy.id === chatId) {
+                    currentChatCopy = {
+                        ...currentChatCopy,
+                        Users: currentChatCopy.Users.filter(user => user.id !== userId)
+                    }
+                }
+
+                return {
+                    ...state,
+                    chats: chatsCopy,
+                    currentChat: currentChatCopy
+                }
             }
         }
         default: {
