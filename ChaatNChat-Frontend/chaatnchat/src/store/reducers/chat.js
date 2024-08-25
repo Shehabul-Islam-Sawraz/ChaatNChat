@@ -1,4 +1,4 @@
-import { ADD_USER_TO_GROUP, CREATE_CHAT, FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, INCREMENT_SCROLL, LEAVE_CURRENT_CHAT, PAGINATE_MESSAGES, RECEIVED_MESSAGE, SENDER_TYPING, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
+import { ADD_USER_TO_GROUP, CREATE_CHAT, DELETE_CURRENT_CHAT, FETCH_CHATS, FRIEND_OFFLINE, FRIEND_ONLINE, FRIENDS_ONLINE, INCREMENT_SCROLL, LEAVE_CURRENT_CHAT, PAGINATE_MESSAGES, RECEIVED_MESSAGE, SENDER_TYPING, SET_CURRENT_CHAT, SET_SOCKET } from '../types/index'
 
 const initialState = {
     chats: [],
@@ -307,6 +307,13 @@ const chatReducer = (state = initialState, action) => {
                     chats: chatsCopy,
                     currentChat: currentChatCopy
                 }
+            }
+        }
+        case DELETE_CURRENT_CHAT: {
+            return {
+                ...state,
+                chats: state.chats.filter(chat => chat.id !== payload),
+                currentChat: state.currentChat.id === payload ? {} : state.currentChat
             }
         }
         default: {

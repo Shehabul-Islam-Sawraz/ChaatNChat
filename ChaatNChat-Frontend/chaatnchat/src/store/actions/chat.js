@@ -1,4 +1,4 @@
-import { FETCH_CHATS, SET_CURRENT_CHAT, FRIENDS_ONLINE, FRIEND_ONLINE, FRIEND_OFFLINE, SET_SOCKET, RECEIVED_MESSAGE, SENDER_TYPING, PAGINATE_MESSAGES, INCREMENT_SCROLL, CREATE_CHAT, ADD_USER_TO_GROUP, LEAVE_CURRENT_CHAT } from '../types/index'
+import { FETCH_CHATS, SET_CURRENT_CHAT, FRIENDS_ONLINE, FRIEND_ONLINE, FRIEND_OFFLINE, SET_SOCKET, RECEIVED_MESSAGE, SENDER_TYPING, PAGINATE_MESSAGES, INCREMENT_SCROLL, CREATE_CHAT, ADD_USER_TO_GROUP, LEAVE_CURRENT_CHAT, DELETE_CURRENT_CHAT } from '../types/index'
 import ChatService from "../../services/chatService"
 
 export const fetchChats = () => dispatch => {
@@ -78,4 +78,8 @@ export const addUserToGroup = (group) => dispatch => {
 
 export const leaveCurrentChat = (data) => dispatch => {
     dispatch({ type: LEAVE_CURRENT_CHAT, payload: data })
+}
+
+export const deleteCurrentChat = (chatId) => dispatch => {
+    dispatch({ type: DELETE_CURRENT_CHAT, payload: chatId })
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
-import { createChat, fetchChats, offlineFriend, onlineFriend, onlineFriends, receivedMessage, senderTyping, setSocket, addUserToGroup, leaveCurrentChat } from '../../../store/actions/chat';
+import { createChat, fetchChats, offlineFriend, onlineFriend, onlineFriends, receivedMessage, senderTyping, setSocket, addUserToGroup, leaveCurrentChat, deleteCurrentChat } from '../../../store/actions/chat';
 
 function useSocket(user, dispatch) {
 
@@ -48,6 +48,10 @@ function useSocket(user, dispatch) {
                 socket.on('remove-user-from-chat', (data) => {
                     data.currentUserId = user.id
                     dispatch(leaveCurrentChat(data))
+                })
+
+                socket.on('delete-chat', (chatId) => {
+                    dispatch(deleteCurrentChat(chatId))
                 })
             })
             .catch(err => {
